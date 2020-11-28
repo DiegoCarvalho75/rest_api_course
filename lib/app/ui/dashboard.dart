@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../repositories/endpoints_data.dart';
 import '../repositories/data_repositories.dart';
 import '../services/api.dart';
 import '../ui/endpoint_card.dart';
@@ -13,7 +14,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _cases;
+  EndpointsData _endpointsData;
   @override
   void initState() {
     super.initState();
@@ -22,14 +23,14 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> _updateData() async {
     final dataRepository = Provider.of<DataRepository>(context, listen: false);
-    final cases = await dataRepository.getEndpointData(Endpoint.cases);
+    final endpointsData = await dataRepository.getAllEndpointsData();
     setState(() {
-      _cases = cases;
+      _endpointsData = endpointsData;
     });
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Coronavirus Tracker Dashboard'),
@@ -38,10 +39,13 @@ class _DashboardState extends State<Dashboard> {
         onRefresh: _updateData,
         child: ListView(
           children: [
-            EndpointCard(
-              endpoint: Endpoint.cases,
-              value: _cases,
-            )
+            for (var endpoint in Endpoint.values)
+              EndpointCard(
+                endpoint: endpoint,
+                value: _endpointsData != null
+                    ? _endpointsData.values[endpoint]
+                    : null,
+              )
           ],
         ),
       ),

@@ -56,7 +56,7 @@ class APIService {
   static Map<Endpoint, dynamic> _responseJsonKeys = {
     Endpoint.cases: "cases",
     Endpoint.casesConfirmed: "data",
-    Endpoint.casesSuspect: "data",
+    Endpoint.casesSuspected: "data",
     Endpoint.deaths: "data",
     Endpoint.recovered: "data",
   };

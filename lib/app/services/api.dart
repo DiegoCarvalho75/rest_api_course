@@ -4,7 +4,7 @@ import './api_keys.dart';
 
 enum Endpoint {
   cases,
-  casesSuspect,
+  casesSuspected,
   casesConfirmed,
   deaths,
   recovered,
@@ -34,7 +34,7 @@ class API {
   static Map<Endpoint, String> _path = {
     Endpoint.cases: 'cases',
     Endpoint.casesConfirmed: 'casesConfirmed',
-    Endpoint.casesSuspect: 'casesSuspect',
+    Endpoint.casesSuspected: 'casesSuspected',
     Endpoint.deaths: 'deaths',
     Endpoint.recovered: 'recovered',
   };

@@ -14,22 +14,20 @@ class DataRepository {
 
   String _accessToken;
 
-  Future<int> getEndpointData(Endpoint endpoint) async {
-    await getDataRefreshingToken<int>(
-      onGetData: () => apiService.getEndpointData(
-        accesToken: _accessToken,
-        endpoint: endpoint,
-      ),
-    );
-  }
+  Future<int> getEndpointData(Endpoint endpoint) async =>
+      await _getDataRefreshingToken<int>(
+        onGetData: () => apiService.getEndpointData(
+          accesToken: _accessToken,
+          endpoint: endpoint,
+        ),
+      );
 
-  Future<EndpointsData> getAllEndpointsData() async {
-    await getDataRefreshingToken<EndpointsData>(
-      onGetData: () => _getAllEndpointsData(),
-    );
-  }
+  Future<EndpointsData> getAllEndpointsData() async =>
+      await _getDataRefreshingToken<EndpointsData>(
+        onGetData: _getAllEndpointsData,
+      );
 
-  Future<T> getDataRefreshingToken<T>({Future<T> Function() onGetData}) async {
+  Future<T> _getDataRefreshingToken<T>({Future<T> Function() onGetData}) async {
     try {
       if (_accessToken == null) {
         _accessToken = await apiService.getAccessToken();
@@ -56,7 +54,7 @@ class DataRepository {
       ),
       apiService.getEndpointData(
         accesToken: _accessToken,
-        endpoint: Endpoint.casesSuspect,
+        endpoint: Endpoint.casesSuspected,
       ),
       apiService.getEndpointData(
         accesToken: _accessToken,
@@ -71,7 +69,7 @@ class DataRepository {
     return EndpointsData(values: {
       Endpoint.cases: values[0],
       Endpoint.casesConfirmed: values[1],
-      Endpoint.casesSuspect: values[2],
+      Endpoint.casesSuspected: values[2],
       Endpoint.deaths: values[3],
       Endpoint.recovered: values[4],
     });

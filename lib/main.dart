@@ -11,8 +11,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
+  /// [ Home ]
   @override
   Widget build(BuildContext context) {
     return Provider<DataRepository>(
@@ -20,13 +19,14 @@ class MyApp extends StatelessWidget {
         apiService: APIService(API.sandbox()),
       ),
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Coronavirus Tracker',
-          theme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: Color(0xFF101010),
-            cardColor: Color(0xFF222222),
-          ),
-          home: Dashboard()),
+        debugShowCheckedModeBanner: false,
+        title: 'Coronavirus Tracker',
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Color(0xFF101010),
+          cardColor: Color(0xFF222222),
+        ),
+        home: Dashboard(),
+      ),
     );
   }
 }
