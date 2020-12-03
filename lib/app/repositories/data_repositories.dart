@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-
+import 'package:rest_api_course/app/services/endpoint_data.dart';
 import '../repositories/endpoints_data.dart';
 import '../services/api.dart';
 import '../services/api_service.dart';
@@ -14,8 +14,8 @@ class DataRepository {
 
   String _accessToken;
 
-  Future<int> getEndpointData(Endpoint endpoint) async =>
-      await _getDataRefreshingToken<int>(
+  Future<EndpointData> getEndpointData(Endpoint endpoint) async =>
+      await _getDataRefreshingToken<EndpointData>(
         onGetData: () => apiService.getEndpointData(
           accesToken: _accessToken,
           endpoint: endpoint,
